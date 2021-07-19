@@ -16,4 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-urlpatterns = [path("admin/", admin.site.urls)]
+from django.views import generic
+
+
+# A forced error page
+def errorpage(request):
+    raise NotImplementedError("Ha! Fooled you!")
+
+
+urlpatterns = [
+    path("", generic.TemplateView.as_view(template_name="home.html")),
+    path("admin/", admin.site.urls),
+    path("error", errorpage),
+]
+
